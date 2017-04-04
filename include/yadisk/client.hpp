@@ -23,6 +23,18 @@ namespace yadisk
 
         auto info() -> json;
 
+        ///
+        /// \brief info, full information is here:
+        ///     https://tech.yandex.ru/disk/api/reference/meta-docpage/
+        /// \param resource is a path to desired file/folder
+        /// \param options is json with deleted flag, sort, limit, offset, fields,
+        ///     preview_size, preview_crop params
+        /// \return meta information about resource, also empty json() on some errors,
+        ///     on some errors json with error message.
+        /// One example:
+        /// \include examples/info.cpp
+        /// For more info about usage the method see tests/client/info.cpp
+        ///
         auto info(url::path resource, json options = nullptr) -> json;
 
         auto list(json options = nullptr) -> json;
@@ -54,6 +66,9 @@ namespace yadisk
         auto save(string public_key, string name, url::path file = nullptr)-> json;
         
         string token;
+
+    private:
+        auto info_impl (url::path resource, json options) -> json;
     };
 
 }
